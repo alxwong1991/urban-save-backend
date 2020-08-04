@@ -1,0 +1,44 @@
+module.exports = [
+    {
+      id: 0,
+      name: 'Alex Wong',
+      email: 'john.doe@gmail.com',
+      password: '123456'
+    },
+    {
+      id: 1,
+      name: 'Sam O',
+      email: 'sam.o@gmail.com',
+      password: '123456'
+    },
+    {
+      id: 2,
+      name: 'Jyoti G',
+      email: 'jyoti.g@gmail.com',
+      password: '123456'
+    }
+  ]
+
+  ([
+
+    {
+      "first_name": 'Alex',
+      "last_name": 'Wong',
+      "email": 'alex@alex.com',
+      "password": 'alex123',
+      "about_yourself": 'Something about Alex',
+      "address_1": 'Flat D, 8 Floor, Tower 3, Bel Air',
+      "address_2": '5 Cyberport, Pokfulam',
+      "phone": '12345',
+    },
+    {
+      "first_name": 'Joe',
+      "last_name": 'Tsui',
+      "email": 'joe@joe.com',
+      "password": 'joe123',
+      "about_yourself": 'Something about Joe',
+      "address_1": 'Flat A, 11 Floor, Tower 2, Mount Nicholson',
+      "address_2": '8 Mount Nicholson Road',
+      "phone": '54321',
+    },
+  ])
