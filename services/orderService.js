@@ -76,7 +76,7 @@ class orderService {
                     .where("order_id", 1)
                     .catch((err) => console.log(err))
             } else {
-                return await this.knex
+                return this.knex
                     .update({
                         product_id: order_info.product_id1,
                         quantity: order_info.quantity1,
@@ -121,7 +121,7 @@ class orderService {
                     .where("order_id", 1)
                     .catch((err) => console.log(err))
             } else {
-                return await this.knex
+                return this.knex
                     .update({
                         product_id: order_amend.product_id1,
                         quantity: order_amend.quantity1,
