@@ -50,17 +50,17 @@ class orderService {
     //         .catch((err) => console.log(err))
     // }
 
-    async addChairsOrders(order_info) {
-        let query = await this.knex
+    addChairsOrders(order_info) {
+        let query = this.knex
             .select("*")
             .from("ordered_product_details")
             .innerJoin("orders", "ordered_product_details.order_id", "orders.id")
             .innerJoin("products", "ordered_product_details.product_id", "products.id")
             .where("order_id", 1)
 
-        return query.then(async (data) => {
+        return query.then((data) => {
             if (data.length === 1) {
-                return await this.knex
+                return this.knex
                     .insert({
                         product_id: order_info.product_id1,
                         quantity: order_info.quantity1,
@@ -95,17 +95,17 @@ class orderService {
         })
     }
 
-    async updateChairsOrders(order_info, order_amend) {
-        let query = await this.knex
+    updateChairsOrders(order_info, order_amend) {
+        let query = this.knex
             .select("*")
             .from("ordered_product_details")
             .innerJoin("orders", "ordered_product_details.order_id", "orders.id")
             .innerJoin("products", "ordered_product_details.product_id", "products.id")
             .where("order_id", 1)
 
-        return query.then(async (data) => {
+        return query.then((data) => {
             if (data.length === 1) {
-                return await this.knex
+                return this.knex
                     .insert({
                         product_id: order_info.product_id1,
                         quantity: order_info.quantity1,
@@ -136,28 +136,28 @@ class orderService {
         })
     }
 
-    async deleteChairOrders(order_info, order_remove) {
+    deleteChairOrders(order_info, order_remove) {
         console.log(order_info)
 
-        let query = await this.knex
+        let query = this.knex
             .select("*")
             .from("ordered_product_details")
             .innerJoin("orders", "ordered_product_details.order_id", "orders.id")
             .innerJoin("products", "ordered_product_details.product_id", "products.id")
             .where("order_id", 1)
 
-            return query.then(async (data) => {
+            return query.then((data) => {
                 console.log(order_remove)
 
                 if (data.length > 1) {
-                    return await this.knex("ordered_product_details")
+                    return this.knex("ordered_product_details")
                     .where("order_id", 1)
                     .del()
                     .catch((err) => console.log(err))
                 } else if (data.length === 1) {
                     console.log(order_remove, "removing the last prodcut in cart")
 
-                    return await this.knex("ordered_product_details")
+                    return this.knex("ordered_product_details")
                     .where("order_id", 1)
                     .del()
                     .catch((err) => console.log(err))
@@ -170,29 +170,6 @@ class orderService {
 
 
 }
-
-// listBuyerProfile(user_id) {
-//     console.log("listBuyerProfile");
-//     console.log(user_id)
-
-//     let query = this.knex
-//         .select(
-//             "orders.id as orderID",
-//             "orders.user_id",
-//             "orders.status",
-//             this.knex.raw(
-//                 "to_char(ordered_product.created_at, 'DD/MM/YYY HH24:MI') as orderedProduct_created_at"),
-
-//             "ordered_product_details.id as orderProductID",
-//             "ordered_product_details.product_id",
-//             "ordered_product_details.quantity",
-//             "product_category.product_id",
-//             "product_category.chair",
-//             "product_category.table",
-//             "product_category."
-
-//         )
-// }
 
 
 
