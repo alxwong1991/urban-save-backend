@@ -10,6 +10,11 @@ class orderRouter {
         router.post("/chair-order", this.postChairsOrders.bind(this));
         router.put("/chair-order/id:", this.putChairsOrderes.bind(this));
         router.delete("/chair-order/id:", this.deleteChairsOrders.bind(this));
+        router.get("/table-order", this.getTablesOrders.bind(this));
+        router.post("/table-order", this.postTablesOrders.bind(this));
+        // router.put("/chair-order/id:", this.putChairsOrderes.bind(this));
+        // router.delete("/chair-order/id:", this.deleteChairsOrders.bind(this));
+
 
         return router;
     }
@@ -70,6 +75,29 @@ class orderRouter {
 
     // handling table order routers
 
+
+    getTablesOrders(req, res) {
+        console.log("getTablesOrders")
+        return this.orderService
+            .listTablesOrders()
+            .then((data) => {
+                res.json(data)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    postTablesOrders(req, res) {
+        let order_info = req.body
+
+        return this.orderService
+            .addChairsOrders(order_info)
+            .then((data) => {
+                console.log("using .then in router");
+                res.json(data)
+            })
+            .catch((err) => console.log(err))
+
+    }
 
 }
 
