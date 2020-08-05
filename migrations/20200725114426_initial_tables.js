@@ -15,6 +15,7 @@ exports.up = function(knex, Promise) {
         table.foreign('user_id').references('users.id')
         table.string('first_name', 255)
         table.string('last_name', 255)
+        table.string('user_email', 255).unique()
         table.string('company_name', 255)
         table.string('address_1', 255)
         table.string('address_2', 255)
