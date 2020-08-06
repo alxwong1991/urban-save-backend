@@ -8,7 +8,7 @@ class buyerInfoService {
         let query = this.knex
             .select("*")
             .from("buyer_info")
-            .where("buyer_info.user_id", user.id);
+            .where("buyer_info.user_id", user.id)
         console.log(user, "getting a user")
 
         return query.then((rows) => {
@@ -16,9 +16,11 @@ class buyerInfoService {
                 return this.knex
                     .select("users.id as user_id")
                     .from("users")
-                    .where("users.id", user.id);
+                    .where("users.id", user.id)
+                    .catch((err) => console.log(err))
             } else {
-                return (rows);
+                return (rows)
+                .catch((err) => console.log(err));
             }
         });
     }
@@ -31,7 +33,7 @@ class buyerInfoService {
         let query = await this.knex
             .select("*")
             .from("buyer_info")
-            .where("buyer_info.user_id", user.id);
+            .where("buyer_info.user_id", user.id)
 
         return query.then((rows) => {
             if (rows.length === 1) {
@@ -46,7 +48,8 @@ class buyerInfoService {
                         phone: content.phone
                     })
                     .into("buyer_info")
-                    .where("buyer_info.user_id", user.id);
+                    .where("buyer_info.user_id", user.id)
+                    .catch((err) => console.log(err));
             } else {
                 return this.knex
                     .insert({
@@ -59,7 +62,8 @@ class buyerInfoService {
                         phone: content.phone
                     })
                     .into("buyer_info")
-                    .where("buyer_info.user_id", user.id);
+                    .where("buyer_info.user_id", user.id)
+                    .catch((err) => console.log(err));
             }
         })
     }
@@ -85,13 +89,15 @@ class buyerInfoService {
                     })
                     .into("buyer_info")
                     .where("buyer_info.user_id", user.id)
+                    .catch((err) => console.log(err))
                     .then(data => {
                         return this.knex
                             .update({
                                 password: content.password1
                             })
                             .into("users")
-                            .where("users.id", user.id);
+                            .where("users.id", user.id)
+                            .catch((err) => console.log(err))
                     });
             } else {
                 return this.knex
@@ -106,7 +112,8 @@ class buyerInfoService {
                         phone: content.phone
                     })
                     .into("buyer_info")
-                    .where("buyer_info.user_id", user.id);
+                    .where("buyer_info.user_id", user.id)
+                    .catch((err) => console.log(err));
             }
         })
     }
