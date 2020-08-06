@@ -38,20 +38,6 @@ class buyerInfoService {
         return query.then((rows) => {
             if (rows.length === 1) {
                 return this.knex
-                    .update({
-                        first_name: content.first_name1,
-                        last_name: content.last_name1,
-                        company_name: content.company_name1,
-                        address_1: content.address_1,
-                        address_2: content.address_2,
-                        district: content.district,
-                        phone: content.phone
-                    })
-                    .into("buyer_info")
-                    .where("buyer_info.user_id", user.id)
-                    .catch((err) => console.log(err));
-            } else {
-                return this.knex
                     .insert({
                         first_name: content.first_name1,
                         last_name: content.last_name1,
@@ -64,7 +50,7 @@ class buyerInfoService {
                     .into("buyer_info")
                     .where("buyer_info.user_id", user.id)
                     .catch((err) => console.log(err));
-            }
+                }
         })
     }
 
