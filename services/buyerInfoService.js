@@ -30,7 +30,7 @@ class buyerInfoService {
         // console.log("trying to add a new buyer")
         // console.log(content)
 
-        let query = await this.knex
+        let query = this.knex
             .select("*")
             .from("buyer_info")
             .where("buyer_info.user_id", user.id)

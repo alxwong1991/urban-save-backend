@@ -76,28 +76,28 @@ class orderRouter {
     // handling table order routers
 
 
-    getTablesOrders(req, res) {
-        console.log("getTablesOrders")
-        return this.orderService
-            .listTablesOrders()
-            .then((data) => {
-                res.json(data)
-            })
-            .catch((err) => console.log(err))
-    }
+    // getTablesOrders(req, res) {
+    //     console.log("getTablesOrders")
+    //     return this.orderService
+    //         .listTablesOrders()
+    //         .then((data) => {
+    //             res.json(data)
+    //         })
+    //         .catch((err) => console.log(err))
+    // }
 
-    postTablesOrders(req, res) {
-        let order_info = req.body
+    // postTablesOrders(req, res) {
+    //     let order_info = req.body
 
-        return this.orderService
-            .addChairsOrders(order_info)
-            .then((data) => {
-                console.log("using .then in router");
-                res.json(data)
-            })
-            .catch((err) => console.log(err))
+    //     return this.orderService
+    //         .addChairsOrders(order_info)
+    //         .then((data) => {
+    //             console.log("using .then in router");
+    //             res.json(data)
+    //         })
+    //         .catch((err) => console.log(err))
 
-    }
+    // }
 
 }
 
