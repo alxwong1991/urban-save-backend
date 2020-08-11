@@ -53,8 +53,6 @@ app.post("/api/login/buyer", (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
 
-// Logic here reads from a JSON, in a real application you will read from a database
-
         const user = users.find((u)=> {
             return u.email === email && u.password === password;
         });
