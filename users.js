@@ -1,4 +1,3 @@
-// for testing out
 
 module.exports = [
     {
