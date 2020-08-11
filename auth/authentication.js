@@ -17,15 +17,15 @@ module.exports = (knex) => {
 
         async (payload, done) => {
 
-            let query = knex
-                .select("id", "email", "password", "is_seller")
-                .from("users")
+            // getting all users
+            let query = knex("users")
                 .where("is_seller", false, payload.id)
-                .orwhere("is_seller", true, payload.is_seller)
+                .orWhere("is_seller", true, payload.is_seller)
 
             query.then((users) => {
                 const user = users.find(u => u.id === payload.id && u.is_seller === payload.is_seller)
 
+                //check if is a buyer or seller
                 if (user === u.id) {
                     return done(null, { id: user.id })
                 } else if (user === u.is_seller) {
@@ -34,7 +34,9 @@ module.exports = (knex) => {
                     return done(new Error("User not found"), null)
                 }
             })
-        });
+        }
+
+        );
 
     passport.use(strategy);
 
