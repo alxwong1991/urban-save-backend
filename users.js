@@ -4,19 +4,25 @@ module.exports = [
       id: 0,
       name: 'Alex Wong',
       email: 'alex.w@gmail.com',
-      password: '123456'
+      password: '12345'
     },
     {
       id: 1,
       name: 'Joe Tsui',
       email: 'joe.t@gmail.com',
-      password: '123456'
+      password: '12345'
     },
     {
       id: 2,
       name: 'Edward Lee',
       email: 'edward.l@gmail.com',
-      password: '123456'
+      password: '12345'
+    },
+    {
+      id: 3,
+      name: 'David Cheung',
+      email: 'david.c@gmail.com',
+      password: '12345'
     }
   ]
 

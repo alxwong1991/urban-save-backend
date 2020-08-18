@@ -11,7 +11,7 @@ const knex = require('knex')(knexConfig);
 
 // require auths
 const jwt = require('jwt-simple');
-const authClass = require('./auth/authentication')(knex)
+const useJWTStrategy = require('./auth/jwtStrategy')(knex)
 // const bearerToken = require('express-bearer-token');
 
 // setting up built-in middlewares
@@ -32,38 +32,37 @@ const productService = new ProductService(knex);
 // setting up orders
 const OrderRouter = require('./routers/orderRouter');
 const OrderService = require('./services/orderService');
-const buyerInfoService = require('./services/buyerInfoService');
 const orderService = new OrderService(knex);
 
-// setting up routers
 
 // product router
-app.use("/api/products", (new ProductRouter(productService)).router());
+app.use('/api/products', (new ProductRouter(productService)).router());
 
 // order router
-app.use("/api/orders", (new OrderRouter(orderService)).router());
+app.use('/api/orders', (new OrderRouter(orderService)).router());
 
 // buyers router
-app.use(authClass.initialize())
-app.use("/api/login", (new BuyerInfoRouter(buyerInfoService)).router());
+app.use(useJWTStrategy.initialize())
+app.use('/api/login', (new BuyerInfoRouter(buyerInfoService)).router());
 
-app.post("/api/login/buyer", (req, res) => {
+// login auths
+app.post('/api/login/profile', (req, res) => {
 
     if (req.body.email && req.body.password) {
         const email = req.body.email;
         const password = req.body.password;
 
-        const user = users.find((u)=> {
+        const user = users.find((u) => {
             return u.email === email && u.password === password;
         });
+
         if (user) {
             let payload = {
                 id: user.id,
-                is_seller: user.is_seller,
 
                 tokenCreatedDate: new Date().getTime()
             };
-            const token = jwt.encode(payload, config.jwtSecret);
+            const token = jwt.encode(payload, config.jwtSecretForSigning);
             res.json({
                 token: token
             });
@@ -71,20 +70,30 @@ app.post("/api/login/buyer", (req, res) => {
             res.sendStatus(401);
         }
     } else {
-        res.sendStatus(401); 
+        res.sendStatus(401);
 
     }
 });
 
+app.post('/api/login/signup', async (req, res) => {
+    let content = req.body
+    console.log(content);
+    return knex.insert({
+        email: content.inputs.email,
+        password: content.inputs.password1,
+        // is_seller: false
+    })
+        .into("users")
+        .returning("id")
+})
 
+// create a port
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+    console.log('Backend is listening on port ' + port);
+});
 
-    // create a port
-    const port = process.env.PORT || 5000;
-    app.listen(port, () => {
-        console.log('Backend is listening on port ' + port);
-    });
-
-    // testing server
-    app.get("/", (req, res) => {
-        res.send('Welcome to Urban Save')
-    });
+// testing server
+app.get('/', (req, res) => {
+    res.send('Welcome to Urban Save')
+});

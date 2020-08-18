@@ -17,26 +17,22 @@ module.exports = (knex) => {
 
         async (payload, done) => {
 
-            // getting all users
-            let query = knex("users")
-                .where("is_seller", false, payload.id)
-                .orWhere("is_seller", true, payload.is_seller)
+            // getting buyer users
+            let query = await knex("users")
+                .innerJoin("buyer_info", "buyer_info.user_id", "users.id", payload.id)
 
-            query.then((users) => {
-                const user = users.find(u => u.id === payload.id && u.is_seller === payload.is_seller)
+            await query
+            let user = {
+                id: query[0].id
+            }
 
-                //check if is a buyer or seller
-                if (user === u.id) {
-                    return done(null, { id: user.id })
-                } else if (user === u.is_seller) {
-                    return done(null, { is_seller: user.is_seller })
-                } else {
-                    return done(new Error("User not found"), null)
-                }
-            })
+            if (user) {
+                return done(null, { id: user.id })
+            } else {
+                return done(new Error('User Not Found!'), null)
+            }
         }
-
-        );
+    );
 
     passport.use(strategy);
 

@@ -4,25 +4,37 @@ class buyerInfoService {
     }
 
     // getting a buyer user
-    listBuyers(user) {
+    // listBuyers(user_id) {
+    //     let query = this.knex("buyer_info")
+    //         .select("*")
+    //         .from("buyer_info")
+    //         .where("buyer_info.user_id", "user.id")
+    //     console.log(user_id, "getting a user")
+
+    //     return query.then((rows) => {
+    //         if (rows.length === 0) {
+    //             return this.knex
+    //                 .select("users.id as user_id")
+    //                 .from("users")
+    //                 .where("users.id", user_id)
+    //                 .catch((err) => console.log(err))
+    //         } else {
+    //             return rows
+    //             .catch((err) => console.log(err));
+    //         }
+    //     });
+    // }
+
+    listBuyers() {
         let query = this.knex
             .select("*")
-            .from("buyer_info")
-            .where("buyer_info.user_id", user.id)
-        console.log(user, "getting a user")
+            .from("users")
+            .innerJoin("buyer_info", "buyer_info.user_id", "users.id")
 
         return query.then((rows) => {
-            if ((rows).length === 0) {
-                return this.knex
-                    .select("users.id as user_id")
-                    .from("users")
-                    .where("users.id", user.id)
-                    .catch((err) => console.log(err))
-            } else {
-                return (rows)
-                .catch((err) => console.log(err));
-            }
-        });
+            // console.log(rows);
+            return rows
+        })
     }
 
     // adds a new buyer info
@@ -32,11 +44,11 @@ class buyerInfoService {
 
         let query = this.knex
             .select("*")
-            .from("buyer_info")
-            .where("buyer_info.user_id", user.id)
+            .from("users")
+            .innerJoin("buyer_info", "buyer_info.user_id", "users.id")
 
         return query.then((rows) => {
-            if (rows.length === 1) {
+            if (rows.length === 0) {
                 return this.knex
                     .insert({
                         first_name: content.first_name1,
@@ -50,19 +62,19 @@ class buyerInfoService {
                     .into("buyer_info")
                     .where("buyer_info.user_id", user.id)
                     .catch((err) => console.log(err));
-                }
+            }
         })
     }
 
     // update the buyer info
     updateBuyers(user, content) {
         let query = this.knex
-            .select("*")
-            .from("buyer_info")
-            .where("buyer_info.user_id", user.id);
+        .select("*")
+        .from("users")
+        .innerJoin("buyer_info", "buyer_info.user_id", "users.id")
 
         return query.then((rows) => {
-            if (rows.length === 1) {
+            if (rows.length === 0) {
                 return this.knex
                     .update({
                         first_name: content.first_name1,

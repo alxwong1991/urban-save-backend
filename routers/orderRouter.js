@@ -6,12 +6,10 @@ class orderRouter {
     }
     router() {
         let router = express.Router()
-        router.get("/chair-order", this.getChairsOrders.bind(this));
         router.post("/chair-order", this.postChairsOrders.bind(this));
-        router.put("/chair-order/id:", this.putChairsOrderes.bind(this));
+        router.put("/chair-order/id:", this.putChairsOrders.bind(this));
         router.delete("/chair-order/id:", this.deleteChairsOrders.bind(this));
-        router.get("/table-order", this.getTablesOrders.bind(this));
-        router.post("/table-order", this.postTablesOrders.bind(this));
+        // router.post("/table-order", this.postTablesOrders.bind(this));
         // router.put("/chair-order/id:", this.putChairsOrderes.bind(this));
         // router.delete("/chair-order/id:", this.deleteChairsOrders.bind(this));
 
@@ -20,18 +18,6 @@ class orderRouter {
     }
 
     // handling chair order routers
-
-
-    getChairsOrders(req, res) {
-        console.log("getChairsOrders")
-        return this.orderService
-            .listChairsOrders()
-            .then((data) => {
-                res.json(data)
-            })
-            .catch((err) => console.log(err))
-    }
-    
 
     postChairsOrders(req, res) {
         let order_info = req.body
@@ -47,7 +33,7 @@ class orderRouter {
     }
 
 
-    putChairsOrderes(req, res) {
+    putChairsOrders(req, res) {
         let order_id = req.params.id
         let order_amend = req.body
 
