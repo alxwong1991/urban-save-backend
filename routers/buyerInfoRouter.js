@@ -1,8 +1,8 @@
 const express = require('express');
 
 class buyerInfoRouter {
-    constructor(buyerService) {
-        this.buyerService = buyerService;
+    constructor(buyerInfoService) {
+        this.buyerInfoService = buyerInfoService;
         
     }
     router() {
@@ -17,7 +17,7 @@ class buyerInfoRouter {
     // getting the buyer's datas
     getBuyers(req, res) {
         let user = req.user;
-        return this.buyerService
+        return this.buyerInfoService
         .listBuyers(user)
         .then(data => {
             res.json(data)
@@ -29,7 +29,7 @@ class buyerInfoRouter {
     postBuyers(req, res) {
         let user = req.user;
         let content = req.body;
-        return this.buyerService
+        return this.buyerInfoService
         .addBuyers(user, content)
         .then(data => {
             res.json(data)
@@ -41,7 +41,7 @@ class buyerInfoRouter {
     putBuyers(req, res) {
         let user = req.user;
         let content = req.body;
-        return this.userService
+        return this.buyerInfoService
         .updateBuyers(user, content)
         .then(data => {
             res.json(data)

@@ -3,11 +3,11 @@ class sellerInfoService {
         this.knex = knex;
     }
 
-    listSellerInfo(user) {
+    listSellers(user) {
         let query = this.knex
             .select("*")
-            .from("seller_info")
-            .where("seller_info.user_id", user.id)
+            .from("users")
+            .innerJoin("seller_info", "seller_info.user_id", "users.id")
         console.log(user, "getting a user")
         return query.then((rows) => {
             if ((rows).length === 0) {
