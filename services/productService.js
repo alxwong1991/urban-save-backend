@@ -11,7 +11,6 @@ class productService {
             .innerJoin("product_category", "product_category.product_id", "products.id")
 
         return query.then((rows) => {
-            // console.log(rows);
             return rows
         })
     }
@@ -25,7 +24,6 @@ class productService {
             .where("product_category.chair", true)
 
         return query.then((rows) => {
-            // console.log(rows);
             return rows
         })
     }
@@ -39,7 +37,6 @@ class productService {
             .where("product_category.table", true)
 
         return query.then((rows) => {
-            // console.log(rows);
             return rows
         })
     }
@@ -53,7 +50,6 @@ class productService {
             .where("product_category.other_equipments", true)
 
         return query.then((rows) => {
-            // console.log(rows);
             return rows
         })
     }

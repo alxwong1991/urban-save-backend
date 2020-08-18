@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+exports.up = function (knex) {
     return knex.schema.createTable('products', (table) => {
         table.increments()
         table.string('product_name', 255)
@@ -9,17 +9,17 @@ exports.up = function(knex, Promise) {
         table.integer('max_stock_available').unsigned()
         table.timestamps(false, true)
     })
-    .createTable('product_category', (table) => {
-        table.increments()
-        table.integer('product_id').notNullable()
-        table.foreign('product_id').references('products.id')
-        table.boolean('chair').notNullable().defaultTo(false)
-        table.boolean('table').notNullable().defaultTo(false)
-        table.boolean('other_equipments').notNullable().defaultTo(false)
-        table.timestamps(false, true)
-    })
+        .createTable('product_category', (table) => {
+            table.increments()
+            table.integer('product_id').notNullable()
+            table.foreign('product_id').references('products.id')
+            table.boolean('chair').notNullable().defaultTo(false)
+            table.boolean('table').notNullable().defaultTo(false)
+            table.boolean('other_equipments').notNullable().defaultTo(false)
+            table.timestamps(false, true)
+        })
 };
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex) {
     return knex.schema.dropTable('products').dropTable('product_category');
 };

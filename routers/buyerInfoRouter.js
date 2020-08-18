@@ -16,9 +16,9 @@ class buyerInfoRouter {
     
     // getting the buyer's datas
     getBuyers(req, res) {
-        let user = req.user;
+        let buyer = req.buyer;
         return this.buyerInfoService
-        .listBuyers(user)
+        .listBuyers(buyer)
         .then(data => {
             res.json(data)
         })
@@ -27,10 +27,10 @@ class buyerInfoRouter {
 
     // posting the buyer's datas
     postBuyers(req, res) {
-        let user = req.user;
+        let buyer = req.buyer;
         let content = req.body;
         return this.buyerInfoService
-        .addBuyers(user, content)
+        .addBuyers(buyer, content)
         .then(data => {
             res.json(data)
         })
@@ -39,10 +39,10 @@ class buyerInfoRouter {
 
     // updating the buyer's datas
     putBuyers(req, res) {
-        let user = req.user;
+        let buyer = req.buyer;
         let content = req.body;
         return this.buyerInfoService
-        .updateBuyers(user, content)
+        .updateBuyers(buyer, content)
         .then(data => {
             res.json(data)
         })

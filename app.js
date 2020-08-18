@@ -24,6 +24,11 @@ const BuyerInfoRouter = require('./routers/buyerInfoRouter');
 const BuyerInfoService = require('./services/buyerInfoService');
 const buyerInfoService = new BuyerInfoService(knex);
 
+// // setting up sellers
+// const SellerInfoRouter = require('./routers/sellerInfoRouter');
+// const SellerInfoService = require('./services/sellerInfoService');
+// const sellerInfoService = new SellerInfoService(knex);
+
 // setting up products
 const ProductRouter = require('./routers/productRouter');
 const ProductService = require('./services/productService');
@@ -42,10 +47,15 @@ app.use('/api/products', (new ProductRouter(productService)).router());
 app.use('/api/orders', (new OrderRouter(orderService)).router());
 
 // buyers router
+app.use('/api/buyer', useJWTStrategy.authenticate(), new BuyerInfoRouter(buyerInfoService).router())
+
+// // sellers router
+// app.use('/api/seller', useJWTStrategy.authenticate(), new SellerInfoRouter(sellerInfoService).router())
+
+
+// login routers
 app.use(useJWTStrategy.initialize())
 app.use('/api/login', (new BuyerInfoRouter(buyerInfoService)).router());
-
-// login auths
 app.post('/api/login/profile', (req, res) => {
 
     if (req.body.email && req.body.password) {

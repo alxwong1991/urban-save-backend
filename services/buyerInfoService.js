@@ -38,7 +38,7 @@ class buyerInfoService {
     }
 
     // adds a new buyer info
-    addBuyers(user, content) {
+    addBuyers(buyer, content) {
         // console.log("trying to add a new buyer")
         // console.log(content)
 
@@ -60,14 +60,14 @@ class buyerInfoService {
                         phone: content.phone
                     })
                     .into("buyer_info")
-                    .where("buyer_info.user_id", user.id)
+                    .where("buyer_info.user_id", buyer.id)
                     .catch((err) => console.log(err));
             }
         })
     }
 
     // update the buyer info
-    updateBuyers(user, content) {
+    updateBuyers(buyer, content) {
         let query = this.knex
         .select("*")
         .from("users")
@@ -86,31 +86,7 @@ class buyerInfoService {
                         phone: content.phone
                     })
                     .into("buyer_info")
-                    .where("buyer_info.user_id", user.id)
-                    .catch((err) => console.log(err))
-                    .then(data => {
-                        return this.knex
-                            .update({
-                                password: content.password1
-                            })
-                            .into("users")
-                            .where("users.id", user.id)
-                            .catch((err) => console.log(err))
-                    });
-            } else {
-                return this.knex
-                    .insert({
-                        user_id: user.id,
-                        first_name: content.first_name1,
-                        last_name: content.last_name1,
-                        company_name: content.company_name1,
-                        address_1: content.address_1,
-                        address_2: content.address_2,
-                        district: content.district,
-                        phone: content.phone
-                    })
-                    .into("buyer_info")
-                    .where("buyer_info.user_id", user.id)
+                    .where("buyer_info.user_id", buyer.id)
                     .catch((err) => console.log(err));
             }
         })
