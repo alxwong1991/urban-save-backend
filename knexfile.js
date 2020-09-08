@@ -6,7 +6,11 @@ module.exports = {
   
   development: {
     client: 'postgresql',
-    connection: "postres://postgres:postgres@localhost:5432/urban_save",
+    connection: {
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD
+    },
     pool: {
       min: 2,
       max: 10
