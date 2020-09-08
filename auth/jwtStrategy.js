@@ -1,6 +1,6 @@
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
-const config = require('../config');
+const config = require('./config');
 const users = require('../users');
 const ExtractJwt = passportJWT.ExtractJwt;
 
